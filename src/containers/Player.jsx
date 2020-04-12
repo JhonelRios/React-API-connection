@@ -6,16 +6,18 @@ import '../assets/styles/components/Player.scss'
 
 const Player = props => {
     const { id } = props.match.params;
-    const hasPlaying = Object.keys(props.playing).length > 0;
 
     useLayoutEffect(() => {
         props.getVideoSource(id);
     }, [])
 
+    const [ movieMatched ] = props.moviesList.filter(movie => movie._id === id);
+    const hasPlaying = movieMatched ? id === movieMatched._id : false
+
     return hasPlaying ? (
         <div className="Player">
             <video controls autoPlay>
-                <source src={props.playing.source} type="video/mp4" />
+                <source src={movieMatched.source} type="video/mp4" />
             </video>
             <div className="Player-back">
                 <button type="button" onClick={() => props.history.goBack()} >
@@ -28,7 +30,7 @@ const Player = props => {
 
 const mapStateToProps = state => {
     return {
-        playing: state.playing
+        moviesList: [...state.mylist, ...state.trends, ...state.originals],
     }
 }
 

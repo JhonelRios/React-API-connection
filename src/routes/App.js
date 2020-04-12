@@ -14,7 +14,7 @@ const App = ({ isLogged }) => (
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={() => isLogged ? <Redirect to="/"/> : <Login />} />
                 <Route exact path="/register" component={() => isLogged ? <Redirect to="/"/> : <Register />} />
-                <Route exact path="/player/:id" component={() =>  isLogged ? <Player /> : <Redirect to="/"/>} />
+                <Route exact path="/player/:id" component={Player} />
                 <Route component={NotFound} />
             </Switch>
         </Layout>
